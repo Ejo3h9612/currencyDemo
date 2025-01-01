@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ForexRequestEntity {
     private String startDate;
+    
     private String endDate;
+    
     private String currency;
 
-    // Getters and Setters
 }

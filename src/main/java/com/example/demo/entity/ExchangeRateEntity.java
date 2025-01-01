@@ -18,15 +18,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ExchangeRateEntity {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+
+	private String currencyPair; // e.g., "USD/NTD"
 	
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	private BigDecimal rate;
 
-    private String currencyPair; // e.g., "USD/NTD"
-    private BigDecimal rate;
-
-    private LocalDateTime timestamp;
-
-    // Getters and Setters
+	private LocalDateTime timestamp;
 }

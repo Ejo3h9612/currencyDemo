@@ -36,6 +36,12 @@ public class ExchangeRateServiceTest {
     @MockBean
     private RestTemplate restTemplate;
 
+    public ExchangeRateServiceTest(ExchangeRateService exchangeRateService, ExchangeRateRepository exchangeRateRepository, RestTemplate restTemplate) {
+        this.exchangeRateService = exchangeRateService;
+        this.restTemplate = restTemplate;
+		this.exchangeRateRepository = exchangeRateRepository;
+    }
+    
     @Test
     public void testFetchAndStoreExchangeRates() {
         // 模擬 API 回應
