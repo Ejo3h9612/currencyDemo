@@ -25,8 +25,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Service
 public class ExchangeRateService {
 
-	private final RestTemplate restTemplate;
-	private final ExchangeRateRepository exchangeRateRepository;
+	private RestTemplate restTemplate;
+	private ExchangeRateRepository exchangeRateRepository;
 
 	@Value("${exchange.api.url}")
 	private String apiUrl;
@@ -39,11 +39,10 @@ public class ExchangeRateService {
 	@Scheduled(cron = "0 0 18 * * ?") // 每日 18:00 執行
 //	@Scheduled(cron = "0 */3 * * * ?")
 	public void fetchAndStoreForexRates() {
-		String apiUrl = "https://openapi.taifex.com.tw/v1/DailyForeignExchangeRates";
-
+		
 		ResponseEntity<byte[]> response = restTemplate.exchange(apiUrl, HttpMethod.GET, null, byte[].class);
 
-		if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+		if (response!=null && response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
 			try {
 				// 將 byte[] 轉為 JSON 字串
 				String jsonResponse = new String(response.getBody(), StandardCharsets.UTF_8);
