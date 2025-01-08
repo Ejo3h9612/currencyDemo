@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entity.ForexRequestEntity;
+import com.example.demo.request.ForexRequest;
 import com.example.demo.service.ExchangeRateService;
 
 @RestController
@@ -28,7 +28,7 @@ public class ForexController {
     @PostMapping("/fetch")
     public ResponseEntity<?> fetchForexRates() {
         try {
-        	exchangeRateService.fetchAndStoreForexRates();
+        	exchangeRateService.fetchAndStoreLatestForexRate();
             return ResponseEntity.ok(Map.of(
                 "error", Map.of("code", "0000", "message", "成功"),
                 "message", "資料已更新"
@@ -41,7 +41,7 @@ public class ForexController {
     }
 
     @PostMapping("/history")
-    public ResponseEntity<Map<String, Object>> getForexHistory(@RequestBody ForexRequestEntity request) {
+    public ResponseEntity<Map<String, Object>> getForexHistory(@RequestBody ForexRequest request) {
         // 日期範圍檢查
         LocalDate startDate = LocalDate.parse(request.getStartDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
         LocalDate endDate = LocalDate.parse(request.getEndDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"));
